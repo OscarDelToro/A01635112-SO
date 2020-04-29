@@ -6,17 +6,17 @@
 #include <sys/wait.h>
 
 int main(){
-    int shmid = shmget(200,100,0644|IPC_CREAT);//creamos bloque de memoria
-    char *var;
+    int shmid = shmget(200,400,0644|IPC_CREAT);//creamos bloque de memoria
+    int *var;
 
-    var= (char *)shmat(shmid, NULL , 0);//nos conectamos a ese bloque
+    var= (int *)shmat(shmid, NULL , 0);//nos conectamos a ese bloque
     int hijos[5];
     for(int i = 0; i < 5; i++){
         int pid = fork();
         hijos[i]=pid;
         if(pid != 0){
-            shmid=shmget(200,100,0644);
-            char *var = (char *)shmat(shmid,NULL,0);
+            shmid=shmget(200,400,0644);
+            int *var = (int *)shmat(shmid,NULL,0);
             var= &var[10*i];
             for(int j = 0; j < 10; j++){
                 var[j] = i + '0';
@@ -29,7 +29,11 @@ int main(){
 
     }
     //sprintf(var,"hola mundo");
-    printf("Esto tiene var %s",var);
+    //int *var = (int *)shmat(shmid,NULL,0);
+    for(int i=0; i<100; i++){
+        printf("%d,",var[i]);
+    }
+    printf("\n");
     return 0;
 
 }
