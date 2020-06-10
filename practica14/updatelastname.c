@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
     char *updatedLastName = argv[2];
     int stNumber = atoi(stChar);
     if (stNumber < 0 || stNumber > 9) {
-        printf("The user specified does not exist.\n");
+        printf("User not found");
         return 1;
     }
 
@@ -25,13 +25,13 @@ int main(int argc, char **argv) {
     student = (Student *) malloc(sizeof(Student));
 
     if ((src = open("class.bin", O_RDWR)) < 0) {
-        printf("Error creating %s file.\n", "class.bin");
+        printf("Error opening file");
         return 2;
     }
 
     lseek(src, sizeof(Student) * stNumber, SEEK_CUR);
     read(src, student, sizeof(Student));
-    printf("Previous last name: %s\n", student-> lastName);
+    printf("Old last name: %s\n", student-> lastName);
 
     sprintf(student->lastName, "%s", updatedLastName);
     for (int i = strlen(student->lastName); i < 20; i++) {

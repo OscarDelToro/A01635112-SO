@@ -24,13 +24,13 @@ int main() {
     }
 
     if ((destination = creat(fileName, 0600)) < 0) {
-        printf("Error creating %s file.\n", fileName);
+        printf("Error creating  file");
         return 2;
     }
 
     for (int i = 0; i < 10; i++) {
         if (write(destination, students[i], sizeof(Student)) < 0) {
-            printf("Error writing to the file %s\n", fileName);
+            printf("Error writing tofile");
             return 4;
         }
     }
